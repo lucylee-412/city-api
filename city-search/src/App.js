@@ -23,10 +23,7 @@ class App extends React.Component {
         event.preventDefault();
 
         const city = this.state.city;
-        console.log(city)
-
         const cityArr = city.toUpperCase().split("")
-        console.log(cityArr)
 
         // Replace all spaces with %20 for URL
         for (let char = 0; char < cityArr.length; char++) {
@@ -34,10 +31,8 @@ class App extends React.Component {
                 cityArr.splice(char, 1, "%20");
             }
         }
-        console.log(cityArr)
 
         const cityURL = cityArr.join('');
-        console.log(cityURL)
 
         fetch(`http://ctp-zip-api.herokuapp.com/city/${cityURL}`)
             .then(async response => {
@@ -57,7 +52,7 @@ class App extends React.Component {
             })
             .then((data) => {
                 this.setState({
-                    cities: data
+                    zipcodes: data
                 });
             })
             .catch(error => {
@@ -67,18 +62,25 @@ class App extends React.Component {
     }
 
     render() {
-        // const {cities} = this.state;
+        const {zipcodes} = this.state;
 
         return (
             <>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    City:
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        City:
+                        <input type="text" value={this.state.value} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
 
+                <div>
+                    <ul>Zip Codes Associated With This City:
+                        {zipcodes.map((zip) => (
+                            <li>{zip}</li>
+                        ))}
+                    </ul>
+                </div>
             </>
         );
     }
