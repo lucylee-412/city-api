@@ -96,12 +96,11 @@ class App extends React.Component {
                     <div className='container-top'>Zip Codes Associated With This City:</div>
                     <ul>
                         {zipcodes.map((zip) => (
-<<<<<<< HEAD
-                            <li key = {zip}>{zip}</li>
-=======
-                            <li className='label'>{zip}</li>
->>>>>>> bryant
+
+                            <li className='label'>{zip}</li> 
+
                         ))}
+
                     </ul>
                     </div>
                     <div>{this.state.errorMessage}</div>
