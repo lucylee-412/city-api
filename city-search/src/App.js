@@ -72,17 +72,18 @@ class App extends React.Component {
     }
 
     render() {
+        const {zipcodes} = this.state;
+
         const renderZip = () => {
             if (this.state.errorMessage !== "No results") {
-                // BUG: This is sending as plain text
-                return `
-                    <div>
-                    <ul>Zip Codes Associated With This City:
+                return <div className='container'>
+                    <div className='container-top'>Zip Codes Associated With This City:</div>
+                    <ul>
                         {zipcodes.map((zip) => (
-                        <li key={zip}>{zip}</li>
-                    ))}
+                            <li key={zip}>{zip}</li>
+                        ))}
                     </ul>
-                    </div>`;
+                    </div>;
             }
             else {
                 return <div>{this.state.errorMessage}</div>
