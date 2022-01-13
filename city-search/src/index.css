@@ -81,3 +81,12 @@ body {
     font-size: 15px;
     padding: 6px 4px;
   }
+
+  ul {
+    display: -ms-flexbox;           
+    display: -webkit-flex;          
+    display: flex;
+    -webkit-flex-flow: wrap column; 
+    flex-flow: wrap column;
+    max-height: 900px;              
+  }
