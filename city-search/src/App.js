@@ -36,10 +36,6 @@ class App extends React.Component {
             }
         }
 
-        if (this.state.city === "") {
-            alert('Please enter a city');
-        }
-
         const cityURL = cityArr.join('');
 
         fetch(`http://ctp-zip-api.herokuapp.com/city/${cityURL}`)
@@ -71,29 +67,23 @@ class App extends React.Component {
                     zipcodes: [],
                     errorMessage: "No results",
                     isSubmitted: true
-                    errorMessage: null
                 });
-            })
-            .catch(error => {
-                this.setState({ city: "",
-                zipcodes: [],
-                errorMessage: "No Results"});
             });
     }
 
     render() {
+        const {zipcodes} = this.state;
+
         const renderZip = () => {
             if (this.state.errorMessage !== "No results") {
-                // BUG: This is sending as plain text
-                return `
-                    <div className='container'>
+                return <div className='container'>
                     <div className='container-top'>Zip Codes Associated With This City:</div>
-                    <ul>Zip Codes Associated With This City:
+                    <ul>
                         {zipcodes.map((zip) => (
-                        <li key={zip}>{zip}</li>
-                    ))}
+                            <li key={zip}>{zip}</li>
+                        ))}
                     </ul>
-                    </div>`;
+                </div>;
             }
             else {
                 return <div>{this.state.errorMessage}</div>
@@ -101,27 +91,23 @@ class App extends React.Component {
         }
 
         return (
-            <div className='App'>
-                <div className='input-base'>
-                    <h1>City Search</h1>
-                    <div id='search-field'>
-                <form onSubmit={this.handleSubmit}>
-                    <label id='city' name='city'>
-                        City:
-                        <input 
-                        type="text" 
-                        placeholder = "ex: Brooklyn" 
-                        value={this.state.value} 
-                        onChange={this.handleChange} 
-                        />
-                    </label>
-                    <span></span>
-                    <button type="submit" value="Submit">Submit</button>
-                </form>
-                </div>
-                </div>
+            <>
+                <div className='App'>
+                    <div className='input-base'>
+                        <h1>City Search</h1>
+                        <div id='search-field'>
+                    <form onSubmit={this.handleSubmit}>
+                        <label id='city' name='city'>
+                            City:
+                            <input type="text" value={this.state.value} onChange={this.handleChange} />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
+                        </div>
+                    </div>
 
                 {this.state.isSubmitted && renderZip()}
+                </div>
             </>
         );
     }
