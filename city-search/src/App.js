@@ -83,7 +83,7 @@ class App extends React.Component {
                             <li key={zip}>{zip}</li>
                         ))}
                     </ul>
-                    </div>;
+                </div>;
             }
             else {
                 return <div>{this.state.errorMessage}</div>
