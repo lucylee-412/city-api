@@ -7,7 +7,8 @@ class App extends React.Component {
         this.state = {
             city: "",
             zipcodes: [],
-            errorMessage: null
+            errorMessage: null,
+            isSubmitted: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -16,10 +17,13 @@ class App extends React.Component {
 
     handleChange(event) {
         this.setState({city: event.target.value});
-        //NEW20%YORK
     }
 
     handleSubmit(event) {
+        if (this.state.city === "") {
+            alert('Please enter a city');
+        }
+
         event.preventDefault();
 
         const city = this.state.city;
@@ -48,7 +52,7 @@ class App extends React.Component {
                 // check for error response
                 if (!response.ok) {
                     // get error message from body or default to response statusText
-                    const error = (data && data.message) || response.statusText;
+                    const error = response.statusText;
                     return Promise.reject(error);
                 }
 
@@ -57,6 +61,16 @@ class App extends React.Component {
             .then((data) => {
                 this.setState({
                     zipcodes: data,
+                    errorMessage: null,
+                    isSubmitted: true
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    city: "",
+                    zipcodes: [],
+                    errorMessage: "No results",
+                    isSubmitted: true
                     errorMessage: null
                 });
             })
@@ -68,7 +82,23 @@ class App extends React.Component {
     }
 
     render() {
-        const {zipcodes} = this.state;
+        const renderZip = () => {
+            if (this.state.errorMessage !== "No results") {
+                // BUG: This is sending as plain text
+                return `
+                    <div className='container'>
+                    <div className='container-top'>Zip Codes Associated With This City:</div>
+                    <ul>Zip Codes Associated With This City:
+                        {zipcodes.map((zip) => (
+                        <li key={zip}>{zip}</li>
+                    ))}
+                    </ul>
+                    </div>`;
+            }
+            else {
+                return <div>{this.state.errorMessage}</div>
+            }
+        }
 
         return (
             <div className='App'>
@@ -91,22 +121,8 @@ class App extends React.Component {
                 </div>
                 </div>
 
-                <div>
-                    <div className='container'>
-                    <div className='container-top'>Zip Codes Associated With This City:</div>
-                    <ul>
-                        {zipcodes.map((zip) => (
-
-                            <li className='label'>{zip}</li> 
-
-                        ))}
-
-                    </ul>
-                    </div>
-                    <div>{this.state.errorMessage}</div>
-                </div>
-
-            </div>
+                {this.state.isSubmitted && renderZip()}
+            </>
         );
     }
 }
