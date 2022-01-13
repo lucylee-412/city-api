@@ -99,11 +99,19 @@ class App extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         <label id='city' name='city'>
                             City:
+<<<<<<< HEAD
                             <input 
                             type="text" 
                             placeholder="ex. Brooklyn"
                             value={this.state.value} 
                             onChange={this.handleChange}
+=======
+                            <input
+                                type="text"
+                                placeholder = "ex: Brooklyn"
+                                value={this.state.value}
+                                onChange={this.handleChange}
+>>>>>>> a2e51e03fca5495b92be4290a56894ef41dfe101
                             />
                         </label>
                         <span></span>
