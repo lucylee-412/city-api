@@ -1,17 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-
-// let city = this.input.value
-// city.toUpperCase()
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            zipcode: "",
-            cities: [],
+            city: "",
+            zipcodes: [],
             errorMessage: null
         };
 
@@ -20,22 +15,36 @@ class App extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({zipcode: event.target.value});
+        this.setState({city: event.target.value});
+        //NEW20%YORK
     }
 
     handleSubmit(event) {
-        if (!isZipCode(this.state.zipcode)) {
-            alert(this.state.zipcode + ' is not a zip code.');
-        }
-
         event.preventDefault();
 
-        fetch(`http://ctp-zip-api.herokuapp.com/zip/${(this.state.zipcode)}`)
+        const city = this.state.city;
+        console.log(city)
+
+        const cityArr = city.toUpperCase().split("")
+        console.log(cityArr)
+
+        // Replace all spaces with %20 for URL
+        for (let char = 0; char < cityArr.length; char++) {
+            if (cityArr[char] === " ") {
+                cityArr.splice(char, 1, "%20");
+            }
+        }
+        console.log(cityArr)
+
+        const cityURL = cityArr.join('');
+        console.log(cityURL)
+
+        fetch(`http://ctp-zip-api.herokuapp.com/city/${cityURL}`)
             .then(async response => {
                 const data = await response.json();
 
                 console.log(data)
-                console.log(data[0].LocationText)
+                console.log(data[0])
 
                 // check for error response
                 if (!response.ok) {
@@ -58,7 +67,7 @@ class App extends React.Component {
     }
 
     render() {
-        const {cities} = this.state;
+        // const {cities} = this.state;
 
         return (
             <>
@@ -70,16 +79,6 @@ class App extends React.Component {
                 <input type="submit" value="Submit" />
             </form>
 
-            <div>
-                {cities.map((city) => (
-                    <ul key = {city.LocationText}>
-                    <li>State: {city.State}</li>
-                    <li>Location: {city.Lat}, {city.Long}</li>
-                    <li>Population: {city.EstimatedPopulation}</li>
-                    <li>Total Wages: {city.TotalWages}</li>
-                    </ul>
-                ))}
-            </div>
             </>
         );
     }
