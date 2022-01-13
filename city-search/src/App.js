@@ -32,6 +32,10 @@ class App extends React.Component {
             }
         }
 
+        if (this.state.city === "") {
+            alert('Please enter a city');
+        }
+
         const cityURL = cityArr.join('');
 
         fetch(`http://ctp-zip-api.herokuapp.com/city/${cityURL}`)
@@ -67,24 +71,39 @@ class App extends React.Component {
         const {zipcodes} = this.state;
 
         return (
-            <>
+            <div className='App'>
+                <div className='input-base'>
+                    <h1>City Search</h1>
+                    <div id='search-field'>
                 <form onSubmit={this.handleSubmit}>
-                    <label>
+                    <label id='city' name='city'>
                         City:
-                        <input type="text" placeholder = "ex: Brooklyn" value={this.state.value} onChange={this.handleChange} />
+                        <input 
+                        type="text" 
+                        placeholder = "ex: Brooklyn" 
+                        value={this.state.value} 
+                        onChange={this.handleChange} 
+                        />
                     </label>
-                    <input type="submit" value="Submit" />
+                    <span></span>
+                    <button type="submit" value="Submit">Submit</button>
                 </form>
+                </div>
+                </div>
 
                 <div>
-                    <ul>Zip Codes Associated With This City:
+                    <div className='container'>
+                    <div className='container-top'>Zip Codes Associated With This City:</div>
+                    <ul>
                         {zipcodes.map((zip) => (
-                            <li>{zip}</li>
+                            <li className='label'>{zip}</li>
                         ))}
                     </ul>
+                    </div>
                     <div>{this.state.errorMessage}</div>
                 </div>
-            </>
+
+            </div>
         );
     }
 }
