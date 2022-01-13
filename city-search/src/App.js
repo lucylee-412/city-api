@@ -79,7 +79,7 @@ class App extends React.Component {
                 <div>
                     <ul>Zip Codes Associated With This City:
                         {zipcodes.map((zip) => (
-                            <li>{zip}</li>
+                            <li key = {zip}>{zip}</li>
                         ))}
                     </ul>
                     <div>{this.state.errorMessage}</div>
