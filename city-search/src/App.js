@@ -52,12 +52,14 @@ class App extends React.Component {
             })
             .then((data) => {
                 this.setState({
-                    zipcodes: data
+                    zipcodes: data,
+                    errorMessage: null
                 });
             })
             .catch(error => {
-                this.setState({ errorMessage: error.toString() });
-                console.error('There was an error!', error);
+                this.setState({ city: "",
+                zipcodes: [],
+                errorMessage: "No Results"});
             });
     }
 
@@ -80,6 +82,7 @@ class App extends React.Component {
                             <li>{zip}</li>
                         ))}
                     </ul>
+                    <div>{this.state.errorMessage}</div>
                 </div>
             </>
         );
