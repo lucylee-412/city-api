@@ -80,7 +80,7 @@ class App extends React.Component {
                     <div className='container-top'>Zip Codes Associated With This City:</div>
                     <ul>
                         {zipcodes.map((zip) => (
-                            <li key={zip}>{zip}</li>
+                            <li className="label" key={zip}>{zip}</li>
                         ))}
                     </ul>
                 </div>;
