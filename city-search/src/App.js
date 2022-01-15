@@ -38,7 +38,7 @@ class App extends React.Component {
 
         const cityURL = cityArr.join('');
 
-        fetch(`http://ctp-zip-api.herokuapp.com/city/${cityURL}`)
+        fetch(`https://ctp-zip-api.herokuapp.com/city/${cityURL}`)
             .then(async response => {
                 const data = await response.json();
 
