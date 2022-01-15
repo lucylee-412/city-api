@@ -88,5 +88,5 @@ body {
     display: flex;
     -webkit-flex-flow: wrap column; 
     flex-flow: wrap column;
-    max-height: 900px;              
+    max-height: 600px;
   }
