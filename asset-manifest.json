@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/city-api/static/css/main.fd98e5a4.css",
-    "main.js": "/city-api/static/js/main.89447d69.js",
+    "main.js": "/city-api/static/js/main.af7e2432.js",
     "index.html": "/city-api/index.html",
     "main.fd98e5a4.css.map": "/city-api/static/css/main.fd98e5a4.css.map",
-    "main.89447d69.js.map": "/city-api/static/js/main.89447d69.js.map"
+    "main.af7e2432.js.map": "/city-api/static/js/main.af7e2432.js.map"
   },
   "entrypoints": [
     "static/css/main.fd98e5a4.css",
-    "static/js/main.89447d69.js"
+    "static/js/main.af7e2432.js"
   ]
 }
